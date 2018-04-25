@@ -45,8 +45,8 @@ public class SearchFiles {
 
     /** Simple command-line based search demo. */
     public static void main(String[] args) throws Exception {
-        String usage =
-                "Usage:\tjava org.apache.lucene.demo.SearchFiles [-index dir] [-field f] [-repeat n] [-queries file] [-query string] [-raw] [-paging hitsPerPage]\n\nSee http://lucene.apache.org/core/4_1_0/demo/ for details.";
+        String usage = "Usage: java org.apache.lucene.demo.SearchFiles [-index dir] [-field f] [-repeat n] [-queries file] [-query string] [-raw] [-paging hitsPerPage]\n\n"
+                + "See http://lucene.apache.org/core/4_1_0/demo/ for details.";
         if (args.length > 0 && ("-h".equals(args[0]) || "-help".equals(args[0]))) {
             System.out.println(usage);
             System.exit(0);
@@ -100,7 +100,7 @@ public class SearchFiles {
         }
         QueryParser parser = new QueryParser(field, analyzer);
         while (true) {
-            if (queries == null && queryString == null) {                        // prompt the user
+            if (queries == null && queryString == null) { // prompt the user
                 System.out.println("Enter query: ");
             }
 
@@ -118,7 +118,7 @@ public class SearchFiles {
             Query query = parser.parse(line);
             System.out.println("Searching for: " + query.toString(field));
 
-            if (repeat > 0) {                           // repeat & time as benchmark
+            if (repeat > 0) { // repeat & time as benchmark
                 Date start = new Date();
                 for (int i = 0; i < repeat; i++) {
                     searcher.search(query, 100);
@@ -145,8 +145,12 @@ public class SearchFiles {
      * to fill 5 result pages. If the user wants to page beyond this limit, then the query
      * is executed another time and all hits are collected.
      */
-    public static void doPagingSearch(BufferedReader in, IndexSearcher searcher, Query query,
-                                      int hitsPerPage, boolean raw, boolean interactive) throws IOException {
+    public static void doPagingSearch(BufferedReader in,
+                                      IndexSearcher searcher,
+                                      Query query,
+                                      int hitsPerPage,
+                                      boolean raw,
+                                      boolean interactive) throws IOException {
 
         // Collect enough docs to show 5 pages
         TopDocs results = searcher.search(query, 5 * hitsPerPage);
@@ -160,7 +164,11 @@ public class SearchFiles {
 
         while (true) {
             if (end > hits.length) {
-                System.out.println("Only results 1 - " + hits.length + " of " + numTotalHits + " total matching documents collected.");
+                System.out.println("Only results 1 - "
+                        + hits.length
+                        + " of "
+                        + numTotalHits
+                        + " total matching documents collected.");
                 System.out.println("Collect more (y/n) ?");
                 String line = in.readLine();
                 if (line.length() == 0 || line.charAt(0) == 'n') {
@@ -173,7 +181,7 @@ public class SearchFiles {
             end = Math.min(hits.length, start + hitsPerPage);
 
             for (int i = start; i < end; i++) {
-                if (raw) {                              // output raw format
+                if (raw) { // output raw format
                     System.out.println("doc=" + hits[i].doc + " score=" + hits[i].score);
                     continue;
                 }
@@ -231,9 +239,12 @@ public class SearchFiles {
                         }
                     }
                 }
-                if (quit) break;
+                if (quit) {
+                    break;
+                }
                 end = Math.min(numTotalHits, start + hitsPerPage);
             }
         }
     }
+
 }
