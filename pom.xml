@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.jengo.github</groupId>
-    <artifactId>luncene730</artifactId>
+    <artifactId>lucene730</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>${project.artifactId}-${project.version}</name>
